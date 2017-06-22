@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScenePlay : MonoBehaviour {
-    private float timer;
+public class ScenePlay : MonoBehaviour { 
+    public float timer;
     public Text timerText;
 	// Use this for initialization
 	void Start () {
@@ -22,4 +22,6 @@ public class ScenePlay : MonoBehaviour {
 
         timerText.text = timeString;
     }
+
+
 }
