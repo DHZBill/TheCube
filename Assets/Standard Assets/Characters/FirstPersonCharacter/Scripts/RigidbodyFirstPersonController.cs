@@ -16,7 +16,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
-            public float JumpForce = 30f;
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
@@ -87,7 +86,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
         private Vector3 m_GroundContactNormal;
-        private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
+        private bool m_PreviouslyGrounded, m_IsGrounded;
 
 
         public Vector3 Velocity
@@ -98,11 +97,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool Grounded
         {
             get { return m_IsGrounded; }
-        }
-
-        public bool Jumping
-        {
-            get { return m_Jumping; }
         }
 
         public bool Running
@@ -129,11 +123,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
-
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
-            {
-                m_Jump = true;
-            }
         }
 
 
@@ -161,29 +150,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_IsGrounded)
             {
                 m_RigidBody.drag = 5f;
-
-                if (m_Jump)
-                {
-                    m_RigidBody.drag = 0f;
-                    m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-                    m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
-                    m_Jumping = true;
-                }
-
-                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
-                {
-                    m_RigidBody.Sleep();
-                }
             }
             else
             {
                 m_RigidBody.drag = 0f;
-                if (m_PreviouslyGrounded && !m_Jumping)
-                {
-                    StickToGroundHelper();
-                }
             }
-            m_Jump = false;
         }
 
 
@@ -255,10 +226,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_IsGrounded = false;
                 m_GroundContactNormal = Vector3.up;
-            }
-            if (!m_PreviouslyGrounded && m_IsGrounded && m_Jumping)
-            {
-                m_Jumping = false;
             }
         }
     }
