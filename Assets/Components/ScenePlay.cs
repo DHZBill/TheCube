@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScenePlay : MonoBehaviour {
     private float timer;
+    public Text timerText;
 	// Use this for initialization
 	void Start () {
 		
@@ -18,6 +20,6 @@ public class ScenePlay : MonoBehaviour {
 
         string timeString = m.ToString("D2") + ":" + s.ToString("D2") + ":" + ms.ToString("D3");
 
-        Debug.Log(timeString);
+        timerText.text = timeString;
     }
 }
