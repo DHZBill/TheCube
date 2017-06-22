@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ScenePlay : MonoBehaviour { 
     public float timer;
     public Text timerText;
+    public bool[,,] cubes = new bool[20, 20, 20];
 	// Use this for initialization
 	void Start () {
 		
