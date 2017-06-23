@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Control : MonoBehaviour
 {
@@ -122,6 +123,12 @@ public class Control : MonoBehaviour
 		{
 			transform.position = finalPos;
 			safeToTurn = true;
+		}
+	}
+
+	void OnTriggerEnter(Collider other)	{
+		if (other.tag == "Obstacles") {
+			SceneManager.LoadScene("Play");
 		}
 	}
 }
