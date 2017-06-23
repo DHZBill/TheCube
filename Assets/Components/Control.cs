@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Control : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class Control : MonoBehaviour
 	public Transform trailPrefab;
 	private Vector3 intPosition;
 	private Vector3 newPosition;
+
+	public Text trailLength;
+	private int numTrails;
 	// Use this for initialization
 	void Start()
 	{
@@ -39,6 +43,8 @@ public class Control : MonoBehaviour
 		if (newPosition != intPosition)
 		{
 			Instantiate(trailPrefab, intPosition, Quaternion.identity, trail);
+			numTrails++;
+			trailLength.text = "Trail Length: " + numTrails;
 			intPosition = newPosition;
 		}
 		else

@@ -11,6 +11,7 @@ public class Win : MonoBehaviour {
     private string bestTimeString;
 	// Use this for initialization
 	void Start () {
+		transform.position = new Vector3 (Random.Range (-9, 10), Random.Range (-9, 10), -9);
 		winText.text = "Best: " + PlayerPrefs.GetString ("best time");
 		bestTime = PlayerPrefs.GetFloat ("float");
 	}
