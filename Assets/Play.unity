@@ -288,7 +288,7 @@ MonoBehaviour:
   speed: 0
   moveSpeed: 1
   sprintSpeed: 2
-  rotateTime: 1
+  rotateTime: 5
 --- !u!1 &1347757805
 GameObject:
   m_ObjectHideFlags: 0
