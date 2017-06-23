@@ -11,9 +11,8 @@ public class Win : MonoBehaviour {
     private string bestTimeString;
 	// Use this for initialization
 	void Start () {
-        if (bestTime > 0) {
-            winText.text = "Best: " + bestTimeString;
-        }
+		winText.text = "Best: " + PlayerPrefs.GetString ("best time");
+		bestTime = PlayerPrefs.GetFloat ("float");
 	}
 	
 	// Update is called once per frame
@@ -25,7 +24,7 @@ public class Win : MonoBehaviour {
     {
         if (other.tag == "Head")
         {
-            if (scene.timer < bestTime || bestTime < 1f) {
+            if (scene.timer > bestTime) {
                 float time = scene.timer;
                 int ms = (int)(((float)(time - (int)time)) * 1000);
                 int m = (int)time / 60;
@@ -33,7 +32,9 @@ public class Win : MonoBehaviour {
 
                 string timeString = m.ToString("D2") + ":" + s.ToString("D2") + ":" + ms.ToString("D3");
                 bestTimeString = timeString;
+				PlayerPrefs.SetString ("best time", bestTimeString);
                 bestTime = time;
+				PlayerPrefs.SetFloat ("float", bestTime);
             }
 
             SceneManager.LoadScene("Play");
